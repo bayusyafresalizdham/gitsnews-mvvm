@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+                name="viewModel"
+                type="com.apps.myapplication.mvvm.mainhome.HomeViewModel" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:onClick="@{(v) -> viewModel.onClickSlider(viewModel.active_slide_index)}">
+
+                <ImageView android:layout_width="match_parent"
+                           android:layout_height="200dp"
+                           app:imageSource="@{viewModel.active_slide_img}"
+                           android:scaleType="centerCrop"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentBottom="true"
+                              android:orientation="vertical">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:text="@{viewModel.active_slide_title}"
+                                android:textSize="20dp"
+                                android:textColor="#fff"/>
+
+                        <TextView android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="#fff"
+                                  android:textStyle="bold"
+                                  android:layout_marginLeft="20dp"
+                                  android:layout_marginRight="20dp"
+                                  android:layout_marginTop="4dp"
+                                  android:text="@{viewModel.active_slide_desc}"
+                                  android:textSize="12dp"/>
+                        <LinearLayout android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_marginLeft="20dp"
+                                      android:layout_marginTop="8dp"
+                                      android:layout_marginBottom="12dp"
+                                      android:orientation="horizontal">
+
+                            <ImageView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:src="@{viewModel.active_slide == 1 ? @drawable/blt_a : @drawable/blt_n}"
+                                    android:layout_margin="2dp"/>
+
+                            <ImageView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:src="@{viewModel.active_slide == 2 ? @drawable/blt_a : @drawable/blt_n}"
+                                    android:layout_margin="2dp"/>
+                            <ImageView
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:src="@{viewModel.active_slide == 3 ? @drawable/blt_a : @drawable/blt_n}"
+                                    android:layout_margin="2dp"/>
+                        </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:newsList="@{viewModel.newList}" />
+        </LinearLayout>
+
+        <ProgressBar
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.showProgress ? View.VISIBLE : View.GONE}"/>
+    </RelativeLayout>
+</layout>
